@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0 0 64 64">
+  <!-- Background circle with gradient -->
+  <defs>
+    <linearGradient id="bg-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6366F1" />
+      <stop offset="100%" stop-color="#8B5CF6" />
+    </linearGradient>
+    
+    <linearGradient id="line-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FBBF24" />
+      <stop offset="100%" stop-color="#F87171" />
+    </linearGradient>
+    
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="1" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+  
+  <!-- Main circle background -->
+  <circle cx="32" cy="32" r="30" fill="url(#bg-gradient)" opacity="0.1" />
+  <circle cx="32" cy="32" r="27" fill="url(#bg-gradient)" opacity="0.2" />
+  
+  <!-- Clock/routine elements -->
+  <circle cx="32" cy="32" r="22" stroke="#E5E7EB" stroke-width="0.7" fill="none" />
+  
+  <!-- Time markers -->
+  <line x1="32" y1="13" x2="32" y2="16" stroke="#94A3B8" stroke-width="0.7" />
+  <line x1="32" y1="48" x2="32" y2="51" stroke="#94A3B8" stroke-width="0.7" />
+  <line x1="13" y1="32" x2="16" y2="32" stroke="#94A3B8" stroke-width="0.7" />
+  <line x1="48" y1="32" x2="51" y2="32" stroke="#94A3B8" stroke-width="0.7" />
+  
+  <!-- Activity segments -->
+  <path d="M32,32 L32,16 A16,16 0 0,1 45,25" stroke="url(#line-gradient)" stroke-width="1.8" fill="none" stroke-linecap="round" />
+  <path d="M32,32 L45,25 A16,16 0 0,1 43,43" stroke="#3B82F6" stroke-width="1.8" fill="none" stroke-linecap="round" />
+  <path d="M32,32 L43,43 A16,16 0 0,1 21,43" stroke="#10B981" stroke-width="1.8" fill="none" stroke-linecap="round" />
+  <path d="M32,32 L21,43 A16,16 0 0,1 19,25" stroke="#8B5CF6" stroke-width="1.8" fill="none" stroke-linecap="round" />
+  <path d="M32,32 L19,25 A16,16 0 0,1 32,16" stroke="#EC4899" stroke-width="1.8" fill="none" stroke-linecap="round" />
+  
+  <!-- Center point -->
+  <circle cx="32" cy="32" r="3" fill="white" filter="url(#glow)" />
+  
+  <!-- Dots representing tasks/events -->
+  <circle cx="39" cy="20" r="1.5" fill="#FBBF24" />
+  <circle cx="47" cy="32" r="1.5" fill="#3B82F6" />
+  <circle cx="32" cy="47" r="1.5" fill="#10B981" />
+  <circle cx="17" cy="32" r="1.5" fill="#8B5CF6" />
+  <circle cx="25" cy="20" r="1.5" fill="#EC4899" />
+  
+  <!-- Connecting lines (subtle) -->
+  <line x1="35" y1="32" x2="39" y2="20" stroke="#FBBF24" stroke-width="0.5" opacity="0.5" />
+  <line x1="35" y1="32" x2="47" y2="32" stroke="#3B82F6" stroke-width="0.5" opacity="0.5" />
+  <line x1="32" y1="35" x2="32" y2="47" stroke="#10B981" stroke-width="0.5" opacity="0.5" />
+  <line x1="29" y1="32" x2="17" y2="32" stroke="#8B5CF6" stroke-width="0.5" opacity="0.5" />
+  <line x1="29" y1="29" x2="25" y2="20" stroke="#EC4899" stroke-width="0.5" opacity="0.5" />
+</svg>
