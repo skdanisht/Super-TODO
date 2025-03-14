@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Routine Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#4285F4">
+    <link rel="apple-touch-icon" href="/images/icon-192.png">
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+</head>
+<body>
+    <div id="app-loading" class="app-loading">
+        <div class="loader"></div>
+    </div>
+    
+    <div id="main-container" class="container hidden">
+        <header class="app-header">
+            <div class="app-title">
+                <h1>Daily Routine</h1>
+            </div>
+            <div class="user-panel">
+                <div id="user-info">
+                    <div class="user-avatar">
+                        <img id="user-photo" src="images/default-avatar.png" alt="Profile Photo">
+                        <span id="user-name"></span>
+                    </div>
+                    <button id="install-app" class="icon-button" title="Install App">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"/><path d="M13 10h5l-6 6-6-6h5V3h2v7zm-9 9h16v-7h2v8a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-8h2v7z"/></svg>
+                    </button>
+                    <button id="logout-btn" class="icon-button" title="Logout">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"/><path d="M5 11h8v2H5v3l-5-4 5-4v3zm-1 7h2.708a8 8 0 1 0 0-12H4a9.985 9.985 0 0 1 8-4c5.523 0 10 4.477 10 10s-4.477 10-10 10a9.985 9.985 0 0 1-8-4z"/></svg>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <div class="stats-container">
+            <div class="stats-panel">
+                <div class="stats-card">
+                    <div class="stats-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"/><path d="M12 7a8 8 0 1 1 0 16 8 8 0 0 1 0-16zm0 2a6 6 0 1 0 0 12 6 6 0 0 0 0-12zm0 1.5l1.323 2.68 2.957.43-2.14 2.085.505 2.946L12 17.25l-2.645 1.39.505-2.945-2.14-2.086 2.957-.43L12 10.5zM18 2v3l-1.363 1.138A9.935 9.935 0 0 0 13 5.049V2h5zm-7-.001v3.05a9.935 9.935 0 0 0-3.636 1.088L6 5V2l5-.001z"/></svg>
+                    </div>
+                    <div class="stats-data">
+                        <span id="total-points">0</span>
+                        <span class="stats-label">Total Points</span>
+                    </div>
+                </div>
+                <div class="stats-card">
+                    <div class="stats-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"/><path d="M17 3h4a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h4V1h2v2h6V1h2v2zm-2 2H9v2H7V5H4v4h16V5h-3v2h-2V5zm5 6H4v8h16v-8z"/></svg>
+                    </div>
+                    <div class="stats-data">
+                        <span id="current-month-points">0</span>
+                        <span class="stats-label">Month Points</span>
+                    </div>
+                </div>
+                <div class="stats-card">
+                    <div class="stats-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"/><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm1-8h4v2h-6V7h2v5z"/></svg>
+                    </div>
+                    <div class="stats-data">
+                        <span id="pending-tasks">0</span>
+                        <span class="stats-label">Pending Tasks</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="welcome-screen" class="welcome-screen">
+            <div class="welcome-card">
+                <h2>Welcome to Daily Routine Tracker</h2>
+                <p>Looks like you don't have any routines set up yet. Get started by:</p>
+                <div class="welcome-buttons">
+                    <button id="import-json-btn" class="btn-primary">Import JSON</button>
+                    <input type="file" id="json-file-input" accept=".json" style="display: none;">
+                    <button id="add-routine-btn" class="btn-secondary">Add Your First Routine</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="routine-list" class="routine-list hidden">
+            <div class="routine-header">
+                <h2>Your Daily Routine</h2>
+                <div class="routine-actions">
+                    <button id="add-task-btn" class="btn-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"/><path d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z"/></svg>
+                        Add Task
+                    </button>
+                    <button id="export-json-btn" class="btn-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"/><path d="M13 10h5l-6 6-6-6h5V3h2v7zm-9 9h16v-7h2v8a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-8h2v7z"/></svg>
+                        Export
+                    </button>
+                </div>
+            </div>
+            <div id="tasks-container" class="tasks-container">
+                <!-- Tasks will be populated here -->
+            </div>
+        </div>
+
+        <div id="pending-list" class="pending-list hidden">
+            <h2>Pending Tasks</h2>
+            <div id="pending-tasks-container" class="tasks-container">
+                <!-- Pending tasks will be populated here -->
+            </div>
+        </div>
+
+        <!-- Task Form Modal -->
+        <div id="task-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <h2 id="modal-title">Add New Task</h2>
+                <form id="task-form">
+                    <input type="hidden" id="task-id">
+                    <div class="form-group">
+                        <label for="task-title">Task Title</label>
+                        <input type="text" id="task-title" required>
+                    </div>
+                    <div class="form-group time-group">
+                        <div>
+                            <label for="start-time">Start Time</label>
+                            <input type="time" id="start-time" required>
+                        </div>
+                        <div>
+                            <label for="end-time">End Time</label>
+                            <input type="time" id="end-time" required>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary">Save Task</button>
+                        <button type="button" id="cancel-task" class="btn-secondary">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="firebase-config.js"></script>
+    <script>
+        // Ensure Firebase is properly initialized
+        if (typeof firebase === 'undefined') {
+            console.error('Firebase SDK not loaded correctly');
+            alert('Failed to load necessary resources. Please refresh the page.');
+        }
+    </script>
+    <script src="app.js"></script>
+    <script src="register-service-worker.js"></script>
+</body>
+</html>

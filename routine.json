@@ -1,0 +1,74 @@
+[
+  {
+    "title": "Breakfast",
+    "startTime": "04:30",
+    "endTime": "05:00",
+    "status": "incomplete"
+  },
+  {
+    "title": "NMS Sir Physics Lecture 1",
+    "startTime": "05:00",
+    "endTime": "06:30",
+    "status": "incomplete"
+  },
+  {
+    "title": "NMS Sir Physics Lecture 2 / Tuition",
+    "startTime": "06:30",
+    "endTime": "08:00",
+    "status": "incomplete"
+  },
+  {
+    "title": "NMS Sir Physics Lecture 3 / Tuition",
+    "startTime": "08:00",
+    "endTime": "09:30",
+    "status": "incomplete"
+  },
+  {
+    "title": "Read 80 Pages of Directing/Cinematography/Non-Fiction Book",
+    "startTime": "10:00",
+    "endTime": "12:30",
+    "status": "incomplete"
+  },
+  {
+    "title": "Learn and Practice Editing",
+    "startTime": "12:30",
+    "endTime": "13:30",
+    "status": "incomplete"
+  },
+  {
+    "title": "Short Film Work / Screenplay Writing / Watch Movie 1 / Rest",
+    "startTime": "14:30",
+    "endTime": "16:00",
+    "status": "incomplete"
+  },
+  {
+    "title": "Tuition / Reading 80 Pages",
+    "startTime": "16:00",
+    "endTime": "19:30",
+    "status": "incomplete"
+  },
+  {
+    "title": "Chemistry (Theory + Notes + Practice) / Rest",
+    "startTime": "19:30",
+    "endTime": "21:00",
+    "status": "incomplete"
+  },
+  {
+    "title": "Solve 60 Questions (30 Physics + 30 Mathematics)",
+    "startTime": "21:30",
+    "endTime": "00:00",
+    "status": "incomplete"
+  },
+  {
+    "title": "Watch Movie 2",
+    "startTime": "00:00",
+    "endTime": "02:00",
+    "status": "incomplete"
+  },
+  {
+    "title": "Sleep",
+    "startTime": "02:00",
+    "endTime": "04:20",
+    "status": "incomplete"
+  }
+]
