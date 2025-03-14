@@ -141,6 +141,10 @@
 
     <script src="firebase-config.js"></script>
     <script>
+        
+        // Initialize Firebase (in case firebase-config.js doesn't export these variables properly)
+        const auth = firebase.auth();
+        const googleProvider = new firebase.auth.GoogleAuthProvider();
         // Ensure Firebase is properly initialized
         if (typeof firebase === 'undefined') {
             console.error('Firebase SDK not loaded correctly');
